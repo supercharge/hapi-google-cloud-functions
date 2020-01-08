@@ -1,0 +1,30 @@
+{
+    "body": {
+        "name": "Marcus"
+    },
+    "method": "GET",
+    "path": "/",
+    "query": {},
+    "headers": {
+        "host": "europe-west1-supercharge-gcp-testing.cloudfunctions.net",
+        "user-agent": "Mozilla/5.0 (Windows NT 6.3; Win64; x64; rv:71.0) Gecko/20100101 Firefox/71.0",
+        "accept": "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8",
+        "accept-encoding": "gzip, deflate, br",
+        "accept-language": "en-US,en;q=0.5",
+        "forwarded": "for=\"213.211.251.180\";proto=https",
+        "function-execution-id": "k1ukks8qavzv",
+        "upgrade-insecure-requests": "1",
+        "x-appengine-city": "magdeburg",
+        "x-appengine-citylatlong": "52.120533,11.627624",
+        "x-appengine-country": "DE",
+        "x-appengine-default-version-hostname": "d77988d91442a3445-tp.appspot.com",
+        "x-appengine-https": "on",
+        "x-appengine-region": "st",
+        "x-appengine-request-log-id": "5e15db3c00ff06687a1581c1a70001657e64373739383864393134343261333434352d7470000161333032653364613537376534623838326136336531663133636135376339623a38000100",
+        "x-appengine-user-ip": "213.211.251.180",
+        "x-cloud-trace-context": "39392eb8c0e8c15ae07b51c76cd11ffd/11351836263057565816",
+        "x-forwarded-for": "213.211.251.180",
+        "x-forwarded-proto": "https",
+        "connection": "close"
+    }
+}
