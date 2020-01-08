@@ -1,6 +1,6 @@
 'use strict'
 
-const HapiOnLambda = require('./src/index')
+const HapiInCloudFunction = require('./src/index')
 
-module.exports = HapiOnLambda
-module.exports.default = HapiOnLambda
+module.exports = HapiInCloudFunction
+module.exports.default = HapiInCloudFunction

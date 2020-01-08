@@ -51,7 +51,7 @@ Using `@supercharge/hapi-google-cloud-functions` is pretty straightforward:
 'use strict'
 
 const Hapi = require('@hapi/hapi')
-const LambdaHandler = require('@supercharge/hapi-google-cloud-functions')
+const CloudFunctionHandler = require('@supercharge/hapi-google-cloud-functions')
 
 // this `handler` will be used as a cached instance
 // a warm function will reuse the handler for incoming requests
@@ -71,7 +71,7 @@ module.exports.handler = async event => {
     // request. Then, send the request through your hapi server
     // and transform the response from hapi into a
     // function-compatible response
-    handler = LambdaHandler.for(server)
+    handler = CloudFunctionHandler.for(server)
   }
 
   return handler.proxy(event)
