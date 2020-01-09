@@ -30,10 +30,10 @@ jobs:
           registry-url: https://npm.pkg.github.com/
           scope: '@supercharge'
 
-      - name: npm install
+      - name: Install dependencies
         run: npm install
 
-      - name: npm publish
+      - name: Publish to GitHub Package Registry
         env:
           NODE_AUTH_TOKEN: ${{secrets.GITHUB_PUBLISH_GPR_TOKEN}}
         # GitHub doesn’t honor the GitHub Package Registry URL from above (looks like a bug)
