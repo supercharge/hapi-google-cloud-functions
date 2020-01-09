@@ -57,7 +57,7 @@ const CloudFunctionHandler = require('@supercharge/hapi-google-cloud-functions')
 // a warm function will reuse the handler for incoming requests
 let handler
 
-module.exports.handler = async event => {
+module.exports.http = async (request, response) => {
   if (!handler) {
      // First, compose your hapi server with all the plugins and dependencies
     server = new Hapi.Server()
@@ -74,7 +74,7 @@ module.exports.handler = async event => {
     handler = CloudFunctionHandler.for(server)
   }
 
-  return handler.proxy(event)
+  return handler.proxy(request, response)
 }
 ```
 
@@ -85,15 +85,19 @@ There’s a deployment example in the [superchargejs/playground-google-cloud-fun
 We used the [Serverless](https://serverless.com/cli/) framework to deploy a Supercharge app in the `playground-google-cloud-functions` repository. The Serverless CLI is sweet because it allows you to deploy your app from a single configuration file.
 
 
-### Install the `serverless-google-cloudfunctions` Package
-When deploying with the Serverless CLI, you need to install the [`serverless-google-cloudfunctions`](https://github.com/serverless/serverless-google-cloudfunctions) plugin.
+### 1. Install the `serverless-google-cloudfunctions` Package
+When deploying with the Serverless CLI, you need to add the [`serverless-google-cloudfunctions`](https://github.com/serverless/serverless-google-cloudfunctions) package as a dependency to your project. Install it from NPM:
 
 ```bash
 npm i serverless-google-cloudfunctions
 ```
 
+Then, you must add it as a plugin to your `serverless.yml` file. The next step describes this file in more detail.
 
-### Deploy to a Google Cloud Function
+
+### 2. Deploy to a Google Cloud Function
+Deploying to Google Cloud from the Serverless CLI needs a keyfile. Follow these steps in the Serverless docs to [set up your Google Cloud credentials and generate a keyfile](https://serverless.com/framework/docs/providers/google/guide/credentials#get-credentials--assign-roles).
+
 Here’s the sample `serverless.yml` used to deploy the app:
 
 ```yaml
@@ -108,13 +112,21 @@ provider:
 
 functions:
   app:
-    handler: httpHandler
+    handler: http
     memorySize: 256 # default is 1024 MB
     events:
       - http: path
 
 plugins:
   - serverless-google-cloudfunctions
+```
+
+
+### 3. Deploy
+Deploy your project to Google Cloud using the Serverless CLI. Run the following command from your project directory:
+
+```bash
+sls deploy
 ```
 
 The deployment process may take some minutes. When finished, you’ll see a URL to access the deployed function. Enjoy!
