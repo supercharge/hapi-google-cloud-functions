@@ -80,7 +80,7 @@ module.exports.http = async (request, response) => {
 
 
 ## Deployment Example
-There’s a deployment example in the [superchargejs/playground-google-cloud-functions](https://github.com/superchargejs/playground-google-cloud-functions) repository.
+There’s a deployment example in the [supercharge/playground-google-cloud-functions](https://github.com/supercharge/playground-google-cloud-functions) repository.
 
 We used the [Serverless](https://serverless.com/cli/) framework to deploy a Supercharge app in the `playground-google-cloud-functions` repository. The Serverless CLI is sweet because it allows you to deploy your app from a single configuration file.
 
@@ -148,5 +148,5 @@ MIT © [Supercharge](https://superchargejs.com)
 ---
 
 > [superchargejs.com](https://superchargejs.com) &nbsp;&middot;&nbsp;
-> GitHub [@superchargejs](https://github.com/superchargejs/) &nbsp;&middot;&nbsp;
+> GitHub [@superchargejs](https://github.com/supercharge/) &nbsp;&middot;&nbsp;
 > Twitter [@superchargejs](https://twitter.com/superchargejs)
