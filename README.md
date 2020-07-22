@@ -32,7 +32,7 @@ Serverless is becoming popular and widely accepted in the developer community. G
 
 This `@supercharge/hapi-google-cloud-functions` package let’s you use your [hapi.js](https://hapi.dev) HTTP server in a Google Cloud function.
 
-This package wraps your hapi server and transforms an incoming request to the cloud function into a hapi-compatible request. This request will be injected into your hapi server and the resulting response transformed _back_ into a cloud-function-compatible format.
+This package wraps your hapi server and transforms an incoming request to the cloud function into a hapi-compatible request. This request will be injected into your hapi server and the resulting response transformed *back* into a cloud-function-compatible format.
 
 It’s basically a “done for you” package to run your hapi server in a serverless function on Google Cloud.
 
