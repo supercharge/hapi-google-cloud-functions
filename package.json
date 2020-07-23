@@ -1,7 +1,7 @@
 {
   "name": "@supercharge/hapi-google-cloud-functions",
   "description": "Run your hapi server in a Google Cloud function",
-  "version": "1.0.0",
+  "version": "2.0.0",
   "author": "Marcus Pöhls <marcus@superchargejs.com>",
   "bugs": {
     "url": "https://github.com/supercharge/hapi-google-cloud-functions/issues"
