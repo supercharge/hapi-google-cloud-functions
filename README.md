@@ -37,6 +37,19 @@ This package wraps your hapi server and transforms an incoming request to the cl
 It’s basically a “done for you” package to run your hapi server in a serverless function on Google Cloud.
 
 
+## Requirements
+> **hapi v19 (or later)** and **Node.js v12 (or newer)**
+
+This plugin requires **hapi v19** (or later) and **Node.js v12 or newer**.
+
+
+### Compatibility
+| Major Release | [hapi.js](https://github.com/hapijs/hapi) version | Node.js version |
+| --- | --- | --- |
+| `v2` | `>=19 @hapi/hapi` | `>=12` |
+| `v1` | `>=18 hapi` | `>=8` |
+
+
 ## Installation
 
 ```
