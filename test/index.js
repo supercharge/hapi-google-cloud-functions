@@ -1,16 +1,12 @@
 'use strict'
 
 const Zlib = require('zlib')
-const Lab = require('@hapi/lab')
 const Hapi = require('@hapi/hapi')
 const HapiCloudFunctions = require('..')
-const { expect } = require('@hapi/code')
 const Response = require('./fixtures/response')
 
 const { createServer } = require('../examples/hapi-serverless/server')
 const CloudFunctionRequest = require('../examples/hapi-serverless/cloud-function-request.json')
-
-const { describe, it, before } = (exports.lab = Lab.script())
 
 let cloudFunction
 
@@ -26,13 +22,13 @@ function makeRequest (overrides) {
 }
 
 describe('hapi in Google Cloud Function', () => {
-  before(async () => {
+  beforeAll(async () => {
     const server = await createServer(false)
     cloudFunction = HapiCloudFunctions.for(server)
   })
 
   it('has .proxy() method', async () => {
-    expect(cloudFunction.proxy).to.exist()
+    expect(cloudFunction.proxy).toBeDefined()
   })
 
   it('GET rendered HTML', async () => {
@@ -41,9 +37,9 @@ describe('hapi in Google Cloud Function', () => {
     const response = await cloudFunction.proxy(request, new Response())
 
     const { status, body } = response
-    expect(status).to.equal(200)
-    expect(body.toString()).to.startWith('<!DOCTYPE html>')
-    expect(body.toString()).to.include('<h1>Going Serverless with hapi!</h1>')
+    expect(status).toEqual(200)
+    expect(body.toString()).toStartWith('<!DOCTYPE html>')
+    expect(body.toString()).toInclude('<h1>Going Serverless with hapi!</h1>')
   })
 
   it('GET users as JSON', async () => {
@@ -52,8 +48,8 @@ describe('hapi in Google Cloud Function', () => {
     const response = await cloudFunction.proxy(request, new Response())
 
     const { status, body } = response
-    expect(status).to.equal(200)
-    expect(body.toString()).to.equal(JSON.stringify([
+    expect(status).toEqual(200)
+    expect(body.toString()).toEqual(JSON.stringify([
       { id: 1, name: 'Marcus' },
       { id: 2, name: 'Norman' },
       { id: 3, name: 'Christian' }
@@ -70,8 +66,8 @@ describe('hapi in Google Cloud Function', () => {
     const response = await cloudFunction.proxy(request, new Response())
 
     const { status, body } = response
-    expect(status).to.equal(200)
-    expect(body.toString()).to.equal(JSON.stringify({ id: 3, name: 'Supercharge' }))
+    expect(status).toEqual(200)
+    expect(body.toString()).toEqual(JSON.stringify({ id: 3, name: 'Supercharge' }))
   })
 
   it('GET missing route', async () => {
@@ -79,14 +75,14 @@ describe('hapi in Google Cloud Function', () => {
     const response = await cloudFunction.proxy(request, new Response())
 
     const { status, body, headers } = response
-    expect(status).to.equal(404)
-    expect(headers).to.include({
+    expect(status).toEqual(404)
+    expect(headers).toMatchObject({
       'content-type': 'application/json; charset=utf-8',
       'cache-control': 'no-cache',
       'content-length': 60,
       connection: 'keep-alive'
     })
-    expect(body.toString()).to.equal(JSON.stringify({ statusCode: 404, error: 'Not Found', message: 'Not Found' }))
+    expect(body.toString()).toEqual(JSON.stringify({ statusCode: 404, error: 'Not Found', message: 'Not Found' }))
   })
 
   it('serves images', async () => {
@@ -101,8 +97,8 @@ describe('hapi in Google Cloud Function', () => {
     const response = await cloudFunction.proxy(request, new Response())
 
     const { status, body } = response
-    expect(status).to.equal(200)
-    expect(body.toString()).to.exist()
+    expect(status).toEqual(200)
+    expect(body.toString()).toBeDefined()
   })
 
   it('handles querystrings', async () => {
@@ -116,8 +112,8 @@ describe('hapi in Google Cloud Function', () => {
     const response = await cloudFunction.proxy(request, new Response())
 
     const { status, body } = response
-    expect(status).to.equal(200)
-    expect(body.toString()).to.equal(JSON.stringify({ name: 'Marcus' }))
+    expect(status).toEqual(200)
+    expect(body.toString()).toEqual(JSON.stringify({ name: 'Marcus' }))
   })
 
   it('handles headers', async () => {
@@ -131,8 +127,8 @@ describe('hapi in Google Cloud Function', () => {
     const response = await cloudFunction.proxy(request, new Response())
 
     const { status, body } = response
-    expect(status).to.equal(200)
-    expect(body.toString()).to.include('"x-api-key":"Marcus"')
+    expect(status).toEqual(200)
+    expect(body.toString()).toContain('"x-api-key":"Marcus"')
   })
 
   it('handles headers with multiple values', async () => {
@@ -146,8 +142,8 @@ describe('hapi in Google Cloud Function', () => {
     const response = await cloudFunction.proxy(request, new Response())
 
     const { status, body } = response
-    expect(status).to.equal(200)
-    expect(body.toString()).to.include('"x-api-keys":["Marcus","Marcus-Key2"]')
+    expect(status).toEqual(200)
+    expect(body.toString()).toContain('"x-api-keys":["Marcus","Marcus-Key2"]')
   })
 
   it('content encoding', async () => {
@@ -172,8 +168,8 @@ describe('hapi in Google Cloud Function', () => {
     const response = await cloudFunction.proxy(request, new Response())
 
     const { status, body } = response
-    expect(status).to.equal(200)
-    expect(body.toString()).to.equal('encoding-identity')
+    expect(status).toEqual(200)
+    expect(body.toString()).toEqual('encoding-identity')
   })
 
   it('content encoding gzip', async () => {
@@ -198,10 +194,10 @@ describe('hapi in Google Cloud Function', () => {
     const response = await cloudFunction.proxy(request, new Response())
 
     const { status, body, headers } = response
-    expect(status).to.equal(200)
-    expect(headers).to.include({ 'content-encoding': 'gzip' })
+    expect(status).toEqual(200)
+    expect(headers).toMatchObject({ 'content-encoding': 'gzip' })
     expect(
       Zlib.gunzipSync(Buffer.from(body, 'base64')).toString('utf8')
-    ).to.equal('encoding-gzip')
+    ).toEqual('encoding-gzip')
   })
 })
