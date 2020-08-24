@@ -1,6 +1,14 @@
 # Changelog
 
 
+## [2.1.0](https://github.com/supercharge/strings/compare/v2.0.0...v2.1.0) - 2020-08-xx
+
+### Updated
+- bump dependencies
+- move test runner from `@hapi/lab` to `jest`
+- move assertions from `@hapi/code` to `jest`
+
+
 ## 2.0.0 - 2020-07-23
 
 ### Added
